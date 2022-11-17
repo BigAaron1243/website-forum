@@ -1,6 +1,6 @@
 <?php 
 session_start();
-$estr = str_replace("_TITLE", "What", file_get_contents("html/header.html"));
+$estr = str_replace("_TITLE", "Registration successful", file_get_contents("html/header.html"));
 if (isset($_SESSION['username'])) {
 	$estr = str_replace("_USERNAME", "Signed in as " . $_SESSION['username'], $estr);
 } else {

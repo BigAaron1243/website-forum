@@ -1,4 +1,13 @@
-<?php echo str_replace("_TITLE", "Create an Account", file_get_contents("html/header.html"));?>
+<?php 
+session_start();
+$estr = str_replace("_TITLE", "Login", file_get_contents("html/header.html"));
+if (isset($_SESSION['username'])) {
+	$estr = str_replace("_USERNAME", "Signed in as " . $_SESSION['username'], $estr);
+} else {
+	$estr = str_replace("_USERNAME", "Not signed in", $estr);
+}
+echo $estr;
+?>
 <form action="loginpost.php" method="post">
 	<label>Login:<br></label>
 	<label>Name:<br></label>
