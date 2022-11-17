@@ -4,7 +4,7 @@ $estr = str_replace("_TITLE", "Home", file_get_contents("html/header.html"));
 if (isset($_SESSION['username'])) {
 	$estr = str_replace("_USERNAME", "Signed in as " . $_SESSION['username'], $estr);
 } else {
-	$estr = str_replace("_USERNAME", "Not signed in", $estr);
+	$estr = str_replace("_USERNAME", "<a href='login.php'>Log in</a> or <a href='register.php'>Register</a>", $estr);
 }
 echo $estr;
 ?>

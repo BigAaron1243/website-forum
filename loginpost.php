@@ -44,6 +44,8 @@ if ($login == false) {
 	exit();
 }
 
+$_SESSION['username'] = $name;
+
 $hash_default_salt = password_hash($password, PASSWORD_DEFAULT);
 
 

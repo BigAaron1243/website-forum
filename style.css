@@ -27,6 +27,7 @@ header {
 	padding:10px 0px;
 }
 
+
 #headerrightalign {
 	position: absolute;
 	right: calc((100vw - max(50vw, 700px)) / 2);
@@ -64,7 +65,7 @@ footer {
 #content {
 	margin-top: 43px;
 	margin-left: calc((100vw - max(50vw, 700px)) / 2);
-	margin-bottom: 0px;
+	margin-bottom: 6px;
 	margin-right: calc((100vw - max(50vw, 700px)) / 2);
 	min-width: 12cm;
 	text-align: justify;
@@ -73,7 +74,29 @@ footer {
 	padding:8px;
 	background: white;
 	min-height: calc(100vh - 82px);
-	padding-bottom: 43px;
+	padding-bottom: 39px;
+}
+
+@media screen and (min-resolution:160dpi) and (orientation:portrait) {
+	header {
+		font-size: 5vw;
+	}
+	.stickyshadow {
+		background: rgba(0,0,0,0);
+	}
+	.headercontainer {
+		margin:0px;
+	}
+	#content {
+		margin:0px;
+	}
+	#headerrightalign {
+		right:0px;
+	}
+	#headerimg {
+		height:0px;
+		width:0px;
+	}
 }
 
 @media screen and (max-width: 700px) {
