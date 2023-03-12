@@ -17,7 +17,7 @@ $row = $posts->fetch_assoc();
 $title = $row['title'];
 require 'header.php';
 
-echo "<a href='index.php'>Back</a>";
+echo "<a href='../index.php'>Back</a>";
 echo "<div>";
 echo "<h3>".$row['title']."</h3><p>".$row['content']."</p>";
 $dt = $row['time'];
@@ -80,4 +80,4 @@ mysqli_close($conn);
 
 
 
-echo file_get_contents("html/footer.html"); ?>
+echo file_get_contents("../html/footer.html"); ?>

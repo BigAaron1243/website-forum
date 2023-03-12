@@ -38,5 +38,5 @@ if (isset($_GET['code'])) {
 
 ?>
 
-<?php echo file_get_contents("html/footer.html");?>
+<?php echo file_get_contents("../html/footer.html");?>
 

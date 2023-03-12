@@ -13,7 +13,7 @@ if (!isset($_SESSION['userid'])) {
 }
 
 if ($conn->query("SELECT postid,userid FROM postlikes WHERE postid=".$_GET['postid']." AND userid=".$_SESSION['userid'])->fetch_assoc() != NULL) {
-	header("location: index.php");
+	header("location: ../index.php");
 	exit();
 }
 $sqlr = $conn->prepare("INSERT INTO maindb.postlikes (userid, postid) VALUES (?, ?)");
@@ -21,7 +21,7 @@ $sqlr->bind_param('ii', $_SESSION['userid'], $_GET['postid']);
 $sqlr->execute();
 
 
-header("location: index.php");
+header("location: ../index.php");
 
 mysqli_close($conn);
 

@@ -6,7 +6,7 @@ include 'header.php';
 
 if (!isset($_SESSION['userid'])) {
 	echo "Please sign in to make a post";
-	echo file_get_contents("html/footer.html");
+	echo file_get_contents("../html/footer.html");
 	exit();
 }
 ?>
@@ -42,5 +42,5 @@ if (isset($_GET['code'])) {
 
 ?>
 
-<?php echo file_get_contents("html/footer.html");?>
+<?php echo file_get_contents("../html/footer.html");?>
 

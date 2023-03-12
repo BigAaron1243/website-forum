@@ -20,6 +20,6 @@ if ($_SESSION['userid'] == $res->fetch_assoc()['userid']) {
 }
 
 mysqli_close($conn);
-header("location: index.php");
+header("location: ../index.php");
 
-echo file_get_contents("html/footer.html"); ?>
+echo file_get_contents("../html/footer.html"); ?>

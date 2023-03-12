@@ -2,7 +2,7 @@
 session_start();
 
 $title = "Lesite Homepage";
-require 'header.php';
+require 'php/header.php';
 
 $conn = mysqli_connect("localhost", "getposts", "", "maindb");
 $conn2 = mysqli_connect("localhost", "getposts", "", "maindb");
@@ -11,7 +11,7 @@ if ($conn === false) {
 	die("Cant connect to sql database. " . mysqli_connect_error());
 }
 
-echo "<a href='post.php'>Post something</a>";
+echo "<a href='php/post.php'>Post something</a>";
 
 $sqlr = $conn->prepare('SELECT * from posts ORDER BY postid DESC');
 $sqlr->execute();
@@ -22,18 +22,18 @@ $posts = $sqlr->get_result();
 while ($row = $posts->fetch_assoc()) {
 	echo "<div class='post'>";
 	$contentvar = $row['content'];
-	echo "<a href='viewpost.php?postid=". $row['postid'] ."'><h3 class='homecontent'>".$row['title']."</h3></a><p class='homecontent'>".$contentvar."</p>";
+	echo "<a href='php/viewpost.php?postid=". $row['postid'] ."'><h3 class='homecontent'>".$row['title']."</h3></a><p class='homecontent'>".$contentvar."</p>";
 	$dt = $row['time'];
 	$dtc = new DateTime($dt);
 	$dtc->setTimeZone(new DateTimeZone('Australia/Sydney'));
 	echo "posted on: " . $dtc->format('Y-m-d H:i:s') . " by <b>" . $conn->query("SELECT name FROM account where USERID=".$row['userid'])->fetch_assoc()['name'] . "</b>";
 	if (isset($_SESSION['userid'])) {
 		if ($row['userid'] == $_SESSION['userid']) {
-			echo " <a href='deletepost.php?postid=".$row['postid']."'>Delete this post</a>";
+			echo " <a href='php/deletepost.php?postid=".$row['postid']."'>Delete this post</a>";
 		}
 	}
 	$ie = mysqli_num_rows($conn2->query("SELECT postid,userid FROM postlikes WHERE postid=".$row['postid']));
-	echo "<a href=likepost?postid=".$row['postid'] . "></a><br><b>".$ie ."</b>";
+	echo "<a href=php/likepost?postid=".$row['postid'] . "></a><br><b>".$ie ."</b>";
 	if ($ie == 1) {
 		echo " like";
 	} else {
@@ -41,7 +41,7 @@ while ($row = $posts->fetch_assoc()) {
 	}
 	if (isset($_SESSION['userid'])) {
 		if ($conn2->query("SELECT postid,userid FROM postlikes WHERE postid=".$row['postid']." AND userid=".$_SESSION['userid'])->fetch_assoc() == NULL) {
-			echo " <a href='likepost.php?postid=".$row['postid']."'>Like this post</a>";
+			echo " <a href='php/likepost.php?postid=".$row['postid']."'>Like this post</a>";
 		}
 	}
 	echo "</div>";

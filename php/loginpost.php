@@ -54,4 +54,4 @@ echo "<meta http-equiv='refresh' content='1;url=index.php'>";
 
 mysqli_close($conn);
 
-echo file_get_contents("html/footer.html"); ?>
+echo file_get_contents("../html/footer.html"); ?>
