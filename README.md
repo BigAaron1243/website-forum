@@ -4,3 +4,6 @@ Cool little forum type website made in php.
 * Accounts
 * Posts
 * Likes
+Uses Apache server and php with mysqli
+
+![preview](https://github.com/BigAaron1243/website-forum/blob/master/preview.png)
