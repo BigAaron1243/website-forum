@@ -4,5 +4,3 @@ Cool little forum type website made in php.
 * Accounts
 * Posts
 * Likes
-* Hashed and salted password
-
