@@ -1,12 +1,7 @@
 <?php 
 session_start();
-$estr = str_replace("_TITLE", "Login", file_get_contents("html/header.html"));
-if (isset($_SESSION['username'])) {
-	$estr = str_replace("_USERNAME", "Signed in as " . $_SESSION['username'], $estr);
-} else {
-	$estr = str_replace("_USERNAME", "Log in or <a href='register.php'>Register</a>", $estr);
-}
-echo $estr;
+$title = "Sign in to lesite";
+require 'header.php';
 ?>
 <form action="loginpost.php" method="post">
 	<label>Login:<br></label>
@@ -14,6 +9,7 @@ echo $estr;
 	<input type="text" name="name"><br>
 	<label>Password:<br></label>
 	<input type="password" name="password"><br>
+	<?php echo file_get_contents('cap.html'); ?>
 	<input style="margin-top:8px;" type="submit" value="submit">
 </form>
 
@@ -29,6 +25,10 @@ if (isset($_GET['code'])) {
 		case 3:
 			echo "the username or password is incorrect";
 			break;
+		case 4:
+			echo "the security question is incorrect";
+			break;
+
 	}
 }
 ?>

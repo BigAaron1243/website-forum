@@ -1,12 +1,5 @@
 <?php 
 session_start();
-$estr = str_replace("_TITLE", "Registration successful", file_get_contents("html/header.html"));
-if (isset($_SESSION['username'])) {
-	$estr = str_replace("_USERNAME", "Signed in as " . $_SESSION['username'], $estr);
-} else {
-	$estr = str_replace("_USERNAME", "Not signed in", $estr);
-}
-echo $estr;
 
 $conn = mysqli_connect("localhost", "formsub", "", "maindb");
 
@@ -16,7 +9,7 @@ if ($conn === false) {
 
 
 
-$name = $_REQUEST['name'];
+$name = htmlspecialchars($_REQUEST['name']);
 $password = $_REQUEST['password'];
 $passwordconf = $_REQUEST['confpassword'];
 
@@ -30,6 +23,10 @@ if ($password == NULL) {
 }
 if ($password != $passwordconf) {
 	header('Location: register.php?code=3');
+	exit();
+}
+if ($_REQUEST['security'] != $_SESSION['captcha']) {
+	header('Location: register.php?code=5');
 	exit();
 }
 
@@ -54,8 +51,23 @@ $sqlr->execute();
 
 //echo $password . " = " . $_REQUEST['password'] ."<br>Hash: " . $hash_default_salt . "<br>Match: " . password_verify($_REQUEST['password'], $hash_default_salt);
 //
-echo "Registration Successful";
+$_SESSION['username'] = $name;
 
+$title = "Registration successful";
+require 'header.php';
+
+$sqlr = $conn->prepare("SELECT name,userid FROM account WHERE name=?");
+$sqlr->bind_param('s', $name);
+$sqlr->execute();
+$res = $sqlr->get_result();
+
+while ($row = $res->fetch_assoc()) {
+	if ($name == $row['name']) {
+		$_SESSION['userid'] = $row['userid'];
+	}
+}
+echo "Registration Successful, userid: " . $_SESSION['userid'];
+echo "<meta http-equiv='refresh' content='1;url=index.php'>"; 
 mysqli_close($conn);
 
 echo file_get_contents("html/footer.html"); ?>

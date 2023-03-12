@@ -1,22 +1,16 @@
 <?php 
 session_start();
-$estr = str_replace("_TITLE", "Logged in successfully", file_get_contents("html/header.html"));
-if (isset($_SESSION['username'])) {
-	$estr = str_replace("_USERNAME", "Signed in as " . $_SESSION['username'], $estr);
-} else {
-	$estr = str_replace("_USERNAME", "Not signed in", $estr);
-}
-echo $estr;
 $conn = mysqli_connect("localhost", "formsub", "", "maindb");
 
 if ($conn === false) {
 	die("Cant connect to sql database. " . mysqli_connect_error());
 }
 
+ 
 
-
-$name = $_REQUEST['name'];
+$name = htmlspecialchars($_REQUEST['name']);
 $password = $_REQUEST['password'];
+$cap = $_REQUEST['security'];
 
 if ($name == NULL) {
 	header('Location: login.php?code=1');
@@ -25,9 +19,14 @@ if ($name == NULL) {
 if ($password == NULL) {
 	header('Location: login.php?code=2');
 	exit();
+} 
+if ($cap != $_SESSION['captcha']) {
+	header('Location: login.php?code=4');
+	exit();
 }
 
-$sqlr = $conn->prepare('SELECT name,pwhash FROM account WHERE name=?');
+
+$sqlr = $conn->prepare('SELECT name,pwhash,userid FROM account WHERE name=?');
 $sqlr->bind_param('s', $name);
 $sqlr->execute();
 $res = $sqlr->get_result();
@@ -36,7 +35,7 @@ $login = false;
 while ($row = $res->fetch_assoc()) {
 	if (password_verify($password, $row['pwhash'])) {
 		$login = true;
-		echo "Welcome, $name";
+		$_SESSION['userid'] = $row['userid'];
 	}
 }
 if ($login == false) {
@@ -44,11 +43,14 @@ if ($login == false) {
 	exit();
 }
 
+
 $_SESSION['username'] = $name;
 
-$hash_default_salt = password_hash($password, PASSWORD_DEFAULT);
 
-
+$title = "Sign in Successful";
+require 'header.php';
+echo "Welcome, $name";
+echo "<meta http-equiv='refresh' content='1;url=index.php'>";
 
 mysqli_close($conn);
 

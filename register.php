@@ -1,12 +1,7 @@
 <?php 
 session_start();
-$estr = str_replace("_TITLE", "Create an account", file_get_contents("html/header.html"));
-if (isset($_SESSION['username'])) {
-	$estr = str_replace("_USERNAME", "Signed in as " . $_SESSION['username'], $estr);
-} else {
-	$estr = str_replace("_USERNAME", "<a href='login.php'>Log in</a> or Register", $estr);
-}
-echo $estr;
+$title = "Create an account";
+require 'header.php';
 ?>
 <form action="registerpost.php" method="post">
 	<label>Create an account:<br></label>
@@ -16,6 +11,7 @@ echo $estr;
 	<input type="password" name="password"><br>
 	<label>Confirm password:<br></label>
 	<input type="password" name="confpassword"><br>
+	<?php echo file_get_contents('cap.html'); ?>
 	<input style="margin-top:8px;" type="submit" value="submit">
 </form>
 
@@ -33,6 +29,9 @@ if (isset($_GET['code'])) {
 			break;
 		case 4:
 			echo "this username is already registered";
+			break;
+		case 5:
+			echo "security question incorrect";
 			break;
 	}
 }
