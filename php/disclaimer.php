@@ -80,5 +80,4 @@ If you have any questions, comments, or concerns regarding this disclaimer or ou
 By using the forum, you acknowledge that you have read, understood, and agreed to this disclaimer. It is important to review this disclaimer periodically for updates or changes.
 
 </p>
-our general discussion
 <?php echo file_get_contents("../html/footer.html");?>

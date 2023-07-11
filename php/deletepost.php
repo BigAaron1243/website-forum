@@ -1,6 +1,6 @@
 <?php 
 session_start();
-$conn = mysqli_connect("localhost", "postdel", "", "maindb");
+$conn = mysqli_connect("localhost", "low", "", "maindb");
 
 if ($conn === false) {
 	die("Cant connect to sql database. " . mysqli_connect_error());
