@@ -1,11 +1,11 @@
 <?php 
 session_start();
 
-$title = "Lesite Homepage";
+$title = "Forum Homepage";
 require 'php/header.php';
 
-$conn = mysqli_connect("localhost", "getposts", "", "maindb");
-$conn2 = mysqli_connect("localhost", "getposts", "", "maindb");
+$conn = mysqli_connect("localhost", "low", "", "maindb");
+$conn2 = mysqli_connect("localhost", "low", "", "maindb");
 
 if ($conn === false) {
 	die("Cant connect to sql database. " . mysqli_connect_error());

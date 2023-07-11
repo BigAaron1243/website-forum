@@ -1,7 +1,7 @@
 <?php 
 session_start();
 
-$conn = mysqli_connect("localhost", "commentsub", "", "maindb");
+$conn = mysqli_connect("localhost", "low", "", "maindb");
 
 if ($conn === false) {
 	die("Cant connect to sql database. " . mysqli_connect_error());
@@ -24,10 +24,9 @@ if (strlen($content) > 1024) {
 }
 
 
-$dt = date('Y-m-d H:i:s');
 
-$sqlr = $conn->prepare("INSERT INTO maindb.comments (postid, userid, content, time) VALUES (?, ?, ?, ?)");
-$sqlr->bind_param('ssss', $_GET['postid'], $_SESSION['userid'], $_REQUEST['content'], $dt);
+$sqlr = $conn->prepare("INSERT INTO maindb.comments (postid, userid, content) VALUES (?, ?, ?)");
+$sqlr->bind_param('sss', $_GET['postid'], $_SESSION['userid'], $_REQUEST['content']);
 $sqlr->execute();
 
 header('Location: viewpost.php?postid='.$_GET['postid']);

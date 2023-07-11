@@ -9,10 +9,9 @@
 	<body>
 		<header>
 			<div class="headercontainer">
-				<a href="/index.php"><img id="headerimg" src="/images/favicon.png"></a>
 				<a href="/index.php" class="headeritem">Home</a>
-				<a href="about.php"class="headeritem">About</a>
-				<a href="lord.php" class="headeritem">Javascrip</a>
+				<a href="/php/about.php"class="headeritem">About</a>
+				<a href="/php/rules.php"class="headeritem">Rules</a>
 				<label id='headerrightalign'>
 <?php 
 if(!empty($_POST['website'])) die();

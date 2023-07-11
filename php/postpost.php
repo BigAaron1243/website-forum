@@ -1,7 +1,7 @@
 <?php 
 session_start();
 
-$conn = mysqli_connect("localhost", "postsub", "", "maindb");
+$conn = mysqli_connect("localhost", "low", "", "maindb");
 
 if ($conn === false) {
 	die("Cant connect to sql database. " . mysqli_connect_error());
@@ -31,16 +31,12 @@ if (strlen($content) > 2048) {
 	header('Location: post.php?code=4');
 	exit();
 }
-if ($_SESSION['captcha'] != $_REQUEST['security']) {
-	header('Location: post.php?code=5');
-	exit();
-}
 
 
 $dt = date('Y-m-d H:i:s');
 
-$sqlr = $conn->prepare("INSERT INTO maindb.posts (title, content, userid, time) VALUES (?, ?, ?, ?)");
-$sqlr->bind_param('ssss', $title, $content, $_SESSION['userid'], $dt);
+$sqlr = $conn->prepare("INSERT INTO maindb.posts (title, content, userid) VALUES (?, ?, ?)");
+$sqlr->bind_param('sss', $title, $content, $_SESSION['userid']);
 $sqlr->execute();
 
 $dtc = new DateTime($dt);

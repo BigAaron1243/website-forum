@@ -14,7 +14,6 @@ if (!isset($_SESSION['userid'])) {
 			<label>Create a post:<br></label>
 			<label>Title:<br></label>
 			<input type="text" name="title"><br>
-			<?php echo file_get_contents("cap.html") ?>
 			<label>Post content:<br></label>
 			<textarea name="content" cols="40" rows="5"></textarea><br>
 			<input style="margin-top:8px;" type="submit" value="make post">

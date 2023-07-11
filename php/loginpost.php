@@ -1,6 +1,6 @@
 <?php 
 session_start();
-$conn = mysqli_connect("localhost", "formsub", "", "maindb");
+$conn = mysqli_connect("localhost", "low", "", "maindb");
 
 if ($conn === false) {
 	die("Cant connect to sql database. " . mysqli_connect_error());
@@ -36,6 +36,9 @@ while ($row = $res->fetch_assoc()) {
 	if (password_verify($password, $row['pwhash'])) {
 		$login = true;
 		$_SESSION['userid'] = $row['userid'];
+		$sqlr2 = $conn->prepare('UPDATE account set lastloginip=?;');
+		$sqlr2->bind_param('s', $_SERVER["REMOTE_ADDR"]);
+		$sqlr2->execute();
 	}
 }
 if ($login == false) {
@@ -50,7 +53,7 @@ $_SESSION['username'] = $name;
 $title = "Sign in Successful";
 require 'header.php';
 echo "Welcome, $name";
-echo "<meta http-equiv='refresh' content='1;url=index.php'>";
+echo "<meta http-equiv='refresh' content='1;url=/index.php'>";
 
 mysqli_close($conn);
 

@@ -1,7 +1,7 @@
 <?php 
 session_start();
 
-$conn = mysqli_connect("localhost", "formsub", "", "maindb");
+$conn = mysqli_connect("localhost", "low", "", "maindb");
 
 if ($conn === false) {
 	die("Cant connect to sql database. " . mysqli_connect_error());
@@ -29,6 +29,14 @@ if ($_REQUEST['security'] != $_SESSION['captcha']) {
 	header('Location: register.php?code=5');
 	exit();
 }
+if ($_REQUEST['privacypolicy'] != 'Yes' || $_REQUEST['tos'] != 'Yes' || $_REQUEST['disclaimer'] != 'Yes') {
+	header('Location: register.php?code=6');
+	exit();
+}
+if ($_REQUEST['age'] != 'Yes') {
+	header('Location: register.php?code=7');
+	exit();
+}
 
 $sqlr = $conn->prepare("SELECT name FROM account WHERE name=?");
 $sqlr->bind_param('s', $name);
@@ -44,8 +52,8 @@ while ($row = $res->fetch_assoc()) {
 
 $hash_default_salt = password_hash($password, PASSWORD_DEFAULT);
 
-$sqlr = $conn->prepare("INSERT INTO maindb.account (name, pwhash) VALUES (?, ?)");
-$sqlr->bind_param('ss', $name, $hash_default_salt);
+$sqlr = $conn->prepare("INSERT INTO maindb.account (name, pwhash, registerip) VALUES (?, ?, ?)");
+$sqlr->bind_param('sss', $name, $hash_default_salt, $_SERVER["REMOTE_ADDR"]);
 $sqlr->execute();
 
 

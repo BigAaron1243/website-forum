@@ -1,7 +1,7 @@
 <?php 
 session_start();
 
-$conn = mysqli_connect("localhost", "getposts", "", "maindb");
+$conn = mysqli_connect("localhost", "low", "", "maindb");
 
 if ($conn === false) {
 	die("Cant connect to sql database. " . mysqli_connect_error());
@@ -41,7 +41,6 @@ $getc = $getc->get_result();
 ?>
 
 <?php echo "<form action='commentpost.php?postid=" . $_GET['postid']. "'method='post'>" ?>
-<?php echo file_get_contents('cap.html');?>
 <label>Write your Comment:</label><br>
 <input type="text" name="content">
 <input style="margin-top:8px;" type="submit" value="submit">
